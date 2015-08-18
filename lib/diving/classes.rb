@@ -5,7 +5,8 @@ class Scene
     exit(1)
   end
 
-  def get_choice(input)
+  def get_choice
+    print "> "
     choice = $stdin.gets.chomp
     unless choice.downcase == 'exit'
       return choice.downcase
@@ -36,6 +37,18 @@ class Engine
 
     # be sure to print out the last scene
     current_scene.enter()
+  end
+end
+
+class Start < Scene
+  def enter()
+    puts "DIVING INTO THE WRECK"
+    puts "... ... ... ... ... ..."
+    puts "A story/game based on the poem by Adrienne Rich"
+    puts "... ... ... ... ... ..."
+    puts "... ... ... ... ... ..."
+    puts "You find yourself aboard a sun-flooded schooner, alone."
+    return 'deck'
   end
 end
 
@@ -99,7 +112,7 @@ class Deck < Scene
           gear["wetsuit"] = true
         end
 
-      when "look at camera", "camera", "put film in camera", "film"
+      when "look at camera", "camera", "film"
         if tools["camera"]
           puts "Your camera is loaded."
         else
@@ -350,6 +363,7 @@ end
 
 class Map
   @@scenes = {
+    'start' => Start.new(),
     'deck' => Deck.new(),
     'go down' => GoDown.new(),
     'keep going' => KeepGoing.new(),
@@ -374,6 +388,6 @@ class Map
   end
 end
 
-a_map = Map.new('deck')
+a_map = Map.new('start')
 a_game = Engine.new(a_map)
 a_game.play()
