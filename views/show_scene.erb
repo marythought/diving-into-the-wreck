@@ -1,0 +1,15 @@
+<h1> <%= scene.name %> </h1>
+
+<pre>
+<%= scene.description %>
+</pre>
+
+<% if scene.name == "death" || scene.name == "The End" %>
+  <p><a href="/">Play Again?</a></p>
+<% else %>
+  <p>
+  <form action="/game" method="POST">
+    - <input type="text" name="action"> <input type="SUBMIT">
+  </form>
+  </p>
+<% end %>
