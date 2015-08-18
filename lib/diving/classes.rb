@@ -54,7 +54,6 @@ end
 
 class Deck < Scene
   def enter()
-    puts "You find yourself aboard a sun-flooded schooner, alone."
     gear = {"wetsuit"=>false, "flippers"=>false, "mask"=>false}
     tools = {"book of myths"=>false, "camera"=>false, "film"=>false, "knife"=>false}
     ready = false

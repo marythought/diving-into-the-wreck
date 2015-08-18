@@ -33,6 +33,35 @@ module Map
       @paths.update(paths)
     end
 
+    START = Scene.new("Start",
+      """
+      DIVING INTO THE WRECK
+      ... ... ... ... ... ...
+      A story/game based on the poem by Adrienne Rich
+      ... ... ... ... ... ...
+      ... ... ... ... ... ...
+      You find yourself aboard a sun-flooded schooner, alone.
+      """)
+
+    DECK = Scene.new("Deck",
+      """
+      You find yourself aboard a sun-flooded schooner, alone.
+      There's a pile of diving gear on the deck, and some tools.
+      There is a ladder.
+      """)
+
+    LADDER = Scene.new("Ladder",
+      """
+      The ladder is always there
+      hanging innocently
+      close to the side of the schooner.
+      We know what it is for,
+      we who have used it.
+      Otherwise
+      it is a piece of maritime floss
+      some sundry equipment.
+      """)
+
     CENTRAL_CORRIDOR = Scene.new("Central Corridor",
       """
       The Gothons of Planet Percal #25 have invaded your ship and destroyed
@@ -125,6 +154,21 @@ module Map
 
     GENERIC_DEATH = Scene.new("death", "You died.")
 
+    START.add_paths({
+      'look' => DECK,
+      'cheat' => CENTRAL_CORRIDOR
+    })
+
+    LADDER.add_paths({
+      'look' => CENTRAL_CORRIDOR,
+      'cheat' => CENTRAL_CORRIDOR
+    })
+
+    DECK.add_paths({
+      'look' => CENTRAL_CORRIDOR,
+      'book' => CENTRAL_CORRIDOR #book_of_myths
+    })
+
     THE_BRIDGE.add_paths({
       'throw the bomb' => GENERIC_DEATH,
       'slowly place the bomb' => ESCAPE_POD
@@ -141,13 +185,16 @@ module Map
       'tell a joke' => LASER_WEAPON_ARMORY
     })
 
-    START = CENTRAL_CORRIDOR
+    START = START
 
     # A whitelist of allowed scene names. We use this so that
     # bad people on the internet can't access random variables
     # with names.  You can use Test::constants and Kernel.const_get
     # too.
     SCENE_NAMES = {
+      'START' => START,
+      'DECK' => DECK,
+      'LADDER' => LADDER,
       'CENTRAL_CORRIDOR' => CENTRAL_CORRIDOR,
       'LASER_WEAPON_ARMORY' => LASER_WEAPON_ARMORY,
       'THE_BRIDGE' => THE_BRIDGE,
