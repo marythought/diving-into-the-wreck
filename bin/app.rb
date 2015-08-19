@@ -40,3 +40,6 @@ post '/game' do
     erb :you_died
   end
 end
+
+post '/deck' do
+  scene =

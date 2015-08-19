@@ -1,5 +1,10 @@
 module Map
+
   class Scene
+    @@scenes = {
+    'start' => Start.new(),
+    'deck' => Deck.new()
+    }
     # these make it easy for you to access the variables
     attr_reader :name
     attr_reader :paths
@@ -9,6 +14,10 @@ module Map
       @name = name
       @description = description
       @paths = {}
+    end
+
+    def self.get_scene(scene)
+      return @@scenes[scene]
     end
 
     # def get_choice(input)
@@ -214,4 +223,89 @@ module Map
       session[:scene] = SCENE_NAMES.key(scene)
     end
   end
+
+  class Start < Scene
+    def enter()
+      puts "DIVING INTO THE WRECK"
+      puts "... ... ... ... ... ..."
+      puts "A story/game based on the poem by Adrienne Rich"
+      puts "... ... ... ... ... ..."
+      puts "... ... ... ... ... ..."
+      puts "You find yourself aboard a sun-flooded schooner, alone."
+      return 'deck'
+    end
+  end
+
+  class Deck < Scene
+    def enter()
+      gear = {"wetsuit"=>false, "flippers"=>false, "mask"=>false}
+      tools = {"book of myths"=>false, "camera"=>false, "film"=>false, "knife"=>false}
+      ready = false
+      puts "There's a pile of diving gear on the deck, and some tools."
+      puts "There is a ladder."
+      puts "You are having to do this not like Cousteau with his assiduous team."
+
+      while !ready
+        choice = get_choice
+
+        case choice
+        when "look"
+          puts "You're alone on the schooner."
+          if (gear.values.include?(false))
+            puts "There's a pile of diving gear on the deck, and some tools."
+          else
+            puts "You're wearing your diving gear, and holding some tools."
+          end
+          puts "There is a ladder."
+
+        when "help", "what"
+          if (gear.values.include?(false))
+            puts "Maybe you should put on your diving gear. (try 'gear')"
+          elsif (tools.values.include?(false))
+            puts "Are your tools ready to go? (try 'tools')"
+          end
+
+        else
+          puts "Maybe you should try something else. ('Help' for hint)"
+
+        end
+
+        unless gear.values.include?(false) || tools.values.include?(false)
+          ready = true
+        end
+      end
+      puts "You feel ready."
+      puts "Go down?"
+      choice = get_choice
+
+      if is_affirmative?(choice)
+        look_at_ladder(ready)
+      else
+        puts "Maybe you need a minute. You put your diving gear aside for now."
+        return 'deck'
+      end
+    end
+
+    def look_at_ladder(ready)
+      puts "\tThe ladder is always there
+          hanging innocently
+          close to the side of the schooner.
+          We know what it is for,
+          we who have used it.
+          Otherwise
+          it is a piece of maritime floss
+          some sundry equipment."
+      if ready
+        puts "Go down?"
+        choice = get_choice
+        if is_affirmative?(choice)
+          return 'go down'
+        else
+          puts "Maybe you need a minute. You put your diving gear aside for now."
+          return 'deck'
+        end
+      end
+    end
+  end
 end
+
