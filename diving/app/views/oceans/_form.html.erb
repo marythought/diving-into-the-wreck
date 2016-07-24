@@ -1,0 +1,17 @@
+<%= form_for(ocean) do |f| %>
+  <% if ocean.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(ocean.errors.count, "error") %> prohibited this ocean from being saved:</h2>
+
+      <ul>
+      <% ocean.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

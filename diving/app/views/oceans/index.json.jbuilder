@@ -1,0 +1,1 @@
+json.array! @oceans, partial: 'oceans/ocean', as: :ocean

@@ -1,0 +1,1 @@
+json.partial! "oceans/ocean", ocean: @ocean

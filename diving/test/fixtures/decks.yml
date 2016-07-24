@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  wetsuit: false
+  flippers: false
+  mask: MyString
+  boolean: MyString
+  book_of_myths: false
+  camera: false
+  film: false
+  knife: false
+  ready: false
+
+two:
+  wetsuit: false
+  flippers: false
+  mask: MyString
+  boolean: MyString
+  book_of_myths: false
+  camera: false
+  film: false
+  knife: false
+  ready: false
